@@ -27,9 +27,9 @@ NodeJS (nestjs), Mongo (mongoose)
 
 ## | ✉️ • Deploying
 ### • Local environment
-1 - Run docker-compose
+1 - Run `docker compose`
 ```
-docker compose up -d
+docker compose up
 ```
 2 - Done :)
 ```
