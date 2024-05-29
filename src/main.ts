@@ -60,13 +60,7 @@ void (async (): Promise<void> => {
     swaggerDocumentBuilder,
     swaggerDocumentOptions,
   );
-  await SwaggerModule.loadPluginMetadata(() =>
-    Promise.resolve({
-      wrapComponents: {
-        curl: () => () => null,
-      },
-    }),
-  );
+
   SwaggerModule.setup('/docs', app, swaggerDocument, {
     swaggerOptions: {},
   });

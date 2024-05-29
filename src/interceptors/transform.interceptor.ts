@@ -23,7 +23,7 @@ export class TransformInterceptor implements NestInterceptor {
       // timeout(10000),
       map((data): IResponseData<unknown> | StreamableFile | undefined => {
         if (data === undefined) {
-          response.status(204);
+          void response.status(204);
           return undefined;
         }
 
