@@ -1,8 +1,8 @@
 export enum MessageLevelEnum {
-  ERROR = 'ERROR',
-  WARNING = 'WARNING',
   INFORM = 'INFORM',
+  ERROR = 'ERROR',
   SUCCESS = 'SUCCESS',
+  WARNING = 'WARNING',
 }
 
 export type IMessage = {

@@ -40,7 +40,7 @@ export async function SwaggerInject(): Promise<void> {
               ).replace(/.*\//, '');
               if (name) {
                 const schema = ResponseSchema(name);
-                respObj.description = `WrapperDTO&lt;${name}&gt;`;
+                respObj.description = `Response<strong>&lt;${name}&gt;</strong>`;
 
                 if (name === 'SelectableOptionDTO') {
                   // TODO aux function knowed types

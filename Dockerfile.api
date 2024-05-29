@@ -1,0 +1,21 @@
+FROM node:20-alpine3.18
+WORKDIR /app
+
+# install dependencies
+COPY ./package*.json ./
+
+# for production, creae a intermediate image
+RUN npm install
+
+# for development purposes - update to provider secrets
+ARG DB_API_MONGO
+ENV DB_API_MONGO=$DB_API_MONGO
+
+# application port
+EXPOSE 3000 
+
+COPY . .
+
+RUN npm run build
+
+CMD ["node", "dist/main.js"]

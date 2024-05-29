@@ -4,10 +4,11 @@ import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify
 import { DocumentBuilder, SwaggerDocumentOptions, SwaggerModule } from '@nestjs/swagger';
 
 import { SwaggerInject } from './helpers/swagger-injector';
-import { ExceptionsFilter } from './helpers/exceptions.filter';
+import { ExceptionsFilter } from './interceptors/exceptions.filter';
 import { config } from './helpers/environment';
 import { TransformInterceptor } from './interceptors/transform.interceptor';
 import { AppModule } from './modules/app.module';
+import { RequestDataPipe } from './interceptors/transform.pipe';
 
 void (async (): Promise<void> => {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -27,6 +28,7 @@ void (async (): Promise<void> => {
   });
 
   app.useGlobalPipes(
+    new RequestDataPipe(),
     new ValidationPipe({
       transform: true,
       whitelist: true,
@@ -47,12 +49,7 @@ void (async (): Promise<void> => {
     .setTitle(`${config.get('application.name')} - API Docs`)
     // .setDescription(config.get('documentation.description'))
     .setVersion(config.get('application.version'))
-    .addServer(`http://127.0.0.1:${config.get('application.port')}`, 'Local')
-    .addServer(
-      `http://${config.get('application.host')}:${config.get('application.port')}`,
-      'Homologation',
-    )
-    // .addServer(config.get('documentation.servers.dev'), 'Development')
+    .addServer(`http://localhost:${config.get('application.port')}`, 'Local')
     .build();
 
   const swaggerDocumentOptions: SwaggerDocumentOptions = {
@@ -63,7 +60,16 @@ void (async (): Promise<void> => {
     swaggerDocumentBuilder,
     swaggerDocumentOptions,
   );
-  SwaggerModule.setup('/docs', app, swaggerDocument);
+  await SwaggerModule.loadPluginMetadata(() =>
+    Promise.resolve({
+      wrapComponents: {
+        curl: () => () => null,
+      },
+    }),
+  );
+  SwaggerModule.setup('/docs', app, swaggerDocument, {
+    swaggerOptions: {},
+  });
 
   const port = config.get('application.port');
 

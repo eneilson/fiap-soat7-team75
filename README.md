@@ -1,22 +1,37 @@
-# FIAP - SOAT7 🚀
+# FIAP - SOAT7 👨🏾‍💻🚀
 ## Team 75 - FoodAPI
 ```
-🍔 food fast food fast food fast food fast food fast food
+🍔 api fast (food)
 ```
 ---
 ## | 👊🏽 • Team 75
-| |\Name|\Identity|
-|-|-|-|
-| 🌻 | Ana Beraguas | RM |
-| 🗿 | Bruno Santos | RM |
-| 🤘🏽 | Eneilson Almeida | RM355096 |
-| 🐰 | Leandro Coelho | RM355527 |
+| |\Name|\Identity|\Mail|
+|-|-|-|-|
+| 🌻 | Ana Beraguas | RM | anacrisberaguas@gmail.com |
+| 🗿 | Bruno Santos | RM354553 | santosdbruno@gmail.com |
+| 🤘🏽 | Eneilson Almeida | RM355096 | contato@eneilson.com |
+| 🐰 | Leandro Coelho | RM355527 | leandrofreestyle18@gmail.com |
 ---
 
 ## | 🖥️ • Architecture
 ### • Technologies
+NodeJS (nestjs), Mongo (mongoose)
 ### • Modules
-### • Diagram
+- [Client] - Criaçao e busca de clientes
+- [Categories] - CRUD categorias
+- [Products] - CRUD produtos
+- [Order] - Criação de pedidos/fake checkout e fila de pedidos
+
+### • Diagram - EventStorming
+- https://miro.com/miroverse/sistema-de-delivery/
 
 ## | ✉️ • Deploying
-### • Local environment (Docker)
+### • Local environment
+1 - Run docker-compose
+```
+docker compose up -d
+```
+2 - Done :)
+```
+http://localhost:3000/docs
+```

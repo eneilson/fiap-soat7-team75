@@ -1,13 +1,19 @@
 import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
-import { MongooseModule } from '@nestjs/mongoose';
-import { OrdersService } from './services/order.service';
-import { OrdersController } from './controllers/orders.controller';
-import { Order, OrderSchema } from './schemas/order.schema';
+import { MongooseModule, SchemaFactory } from '@nestjs/mongoose';
+import { OrderSchema } from './adapter/database/schemas/order.schema';
+import { OrderController } from './adapter/api/controllers/order.controller';
+import { OrderUseCase } from './aplication/usecase/order.usecase';
+import { OrderRepository } from './adapter/database/repositories/order.repository';
 
 @Module({
-  imports: [HttpModule, MongooseModule.forFeature([{ name: Order.name, schema: OrderSchema }])],
-  controllers: [OrdersController],
-  providers: [OrdersService],
+  imports: [
+    HttpModule,
+    MongooseModule.forFeature([
+      { name: OrderSchema.name, schema: SchemaFactory.createForClass(OrderSchema) },
+    ]),
+  ],
+  controllers: [OrderController],
+  providers: [OrderUseCase, OrderRepository],
 })
 export class OrderModule {}
